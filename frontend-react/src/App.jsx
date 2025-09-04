@@ -7,6 +7,7 @@ function App() {
   return (
     <>
       <h1>Count: {count}</h1>
+      <h2>set Count: {setCount}</h2>
     </>
   )
 }
