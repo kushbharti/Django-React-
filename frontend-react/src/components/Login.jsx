@@ -23,12 +23,12 @@ const Login = () => {
 
     try{
       const response = await axios.post('http://127.0.0.1:8000/api/v1/token/',userData)
-      localStorage.setItem('accessToken: ',response.data.access)
-      localStorage.setItem('refreshToken: ', response.data.refresh)
+      localStorage.setItem('accessToken ',response.data.access)
+      localStorage.setItem('refreshToken ', response.data.refresh)
       console.log('Login Successful.')
-      navigate('/')
       setIsLoggedIn(true)
-
+      navigate('/')
+    
     }catch(error){
       console.error('invalide Credentials',error.response.data)
       setError('invalide Credentials;')
@@ -50,12 +50,10 @@ const Login = () => {
 
                         <div className="mb-3">
                             <input type="text" className="form-control" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/>
-                            
                         </div>
 
                         <div className="mb-3">
                             <input type='password'className='form-control ' placeholder='Set Password' value={password} onChange= {(e) => setPassword(e.target.value)}/>
-                          
                         </div>
 
                         {error && <div className='text-danger'>{error} </div> }
@@ -67,7 +65,6 @@ const Login = () => {
                         )
                         }
 
-                        
 
                     </form>
 
