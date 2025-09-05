@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from './Button'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { AuthContext } from '../AuthProvider'
+
 
 
 const Header = () => {
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    setIsLoggedIn(false);
+    navigate('/login')
+
+  }
+
   return (
     <> 
     
@@ -11,11 +25,16 @@ const Header = () => {
             <Link className='navbar-brand text-light' to='/'>Stock Prediction Portal</Link>
             
             <div>
-                <Button text='Login' class='btn-outline-info' url='/login'/>
-                {/* <a className='btn btn-outline-info' href="">Login</a> */}
-                &nbsp;
-                <Button text='Register' class='btn-info' url='/register'/>
-                {/* <a className='btn btn-info' href="">Register</a> */}
+              {isLoggedIn ? (
+                <button className='btn btn-danger'onClick={handleLogout}> Logout</button>
+              ) : (
+                    <>   
+                      <Button text='Login' class='btn-outline-info' url='/login'/>
+                      &nbsp;
+                      <Button text='Register' class='btn-info' url='/register'/>
+                    </>
+              )
+              }       
             </div>
 
         </nav>
